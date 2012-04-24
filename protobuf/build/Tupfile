@@ -1,0 +1,42 @@
+
+CXXFLAGS= -Wall -Werror
+INCLUDE= ../include
+SRC= ../src
+TST= ../test
+TEST_RUNNER= test_runner
+
+PB_FILES = person.pb.h person.pb.cc
+
+#PROTOTEST_LIB=  
+
+LIBS= libprototest.so
+
+!cxx = |> g++ -fPIC -I$(INCLUDE) -c %f -o %o |>
+!cxxtestgen = |> cxxtestgen --error-printer -o %o %f |> 
+
+!o2bin = |> g++ %f -L. -lprototest -lprotobuf -Wl,-R./ -o %o |>
+!o2shared = |> g++ -shared %f -o %o |>
+
+!protoc = |> protoc -I=$(SRC) --cpp_out=. %f |>
+
+: $(SRC)/person.proto |> !protoc |> $(PB_FILES)
+
+# : foreach $(SRC)/$(PROTOTEST_LIB).cpp |> !cxx |> %B.o
+: person.pb.cc | person.pb.h |> !cxx |> person.pb.o
+
+
+: $(SRC)/main.cpp | person.pb.h |> !cxx |> %B.o
+
+# production lib
+: person.pb.o |> !o2shared |> libprototest.so
+
+# production binary
+: main.o $(LIBS) |> !o2bin |> proto_run
+
+# generating test into one cpp
+#: $(TST)/*.hpp |> !cxxtestgen |> $(TEST_RUNNER).cpp
+#: $(TEST_RUNNER).cpp  |> !cxx |> $(TEST_RUNNER).o
+
+#: $(TEST_RUNNER).o $(LIBS) |> !o2bin |> test_all_stuff
+
+
