@@ -11,7 +11,7 @@ PB_FILES = person.pb.h person.pb.cc
 
 LIBS= libprototest.so
 
-!cxx = |> g++ -fPIC -I$(INCLUDE) -c %f -o %o |>
+!cxx = |> g++ -Wall -pedantic -Werror -fPIC -I$(INCLUDE) -c %f -o %o |>
 !cxxtestgen = |> cxxtestgen --error-printer -o %o %f |> 
 
 !o2bin = |> g++ %f -L. -lprototest -lprotobuf -Wl,-R./ -o %o |>
