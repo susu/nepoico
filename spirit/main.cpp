@@ -4,6 +4,15 @@
 
 using namespace boost::spirit::classic;
 
+void hexdump( std::string const & str )
+{
+  std::cout << "hexdump: " << std::hex;
+  for( size_t i = 0; i < str.length(); ++i )
+  {
+    std::cout << "0x" << int(str[i]) << " ";
+  }
+  std::cout << std::endl;
+}
 
 int main()
 {
@@ -11,6 +20,7 @@ int main()
   //       length: one byte
   //       value: 'length' bytes
   std::string seq("\x10\x04xyza"); // example byte-seq
+  hexdump( seq );
   char type, length=0;
   std::string value;
 
