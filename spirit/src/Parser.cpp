@@ -23,11 +23,14 @@ bool Parser::parseAndAdd( std::string const & bytes )
     (repeat_p (boost::ref(length))[ anychar_p ])[ assign_a(value) ]
     ,space_p).full;
 
-  // hacky way
-  // TODO test on different platform/compiler than Linux/GCC
-  int t = (int(type) & 0xff);
+  if (ret)
+  {
+    // hacky way
+    // TODO test on different platform/compiler than Linux/GCC
+    int t = (int(type) & 0xff);
 
-  (*this)[ t ] = value;
+    (*this)[ t ] = value;
+  }
   return ret;
 }
 

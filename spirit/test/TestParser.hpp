@@ -49,7 +49,7 @@ class TestParser : public CxxTest::TestSuite
       TS_ASSERT_EQUALS( "hello", p[55] );
     }
 
-    void xtest_parseAndAdd_should_not_store_data_in_map_in_case_of_wrong_input()
+    void test_parseAndAdd_should_not_store_data_in_map_in_case_of_wrong_input()
     {
       TCH;
       // Arrange
