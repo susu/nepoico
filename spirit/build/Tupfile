@@ -5,7 +5,7 @@ SRC= ../src
 TST= ../test
 TEST_RUNNER= test_runner
 
-LIBPARSER= Parser
+LIBPARSER= ClassicParser
 LIBS= libparser.so
 
 !cxx = |> g++ -Wall -pedantic -Werror -fPIC -I$(INCLUDE) -c %f -o %o |>

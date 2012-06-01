@@ -3,11 +3,11 @@
 
 typedef std::map<int, std::string> DataMap;
 
-class Parser : public DataMap
+class ClassicParser : public DataMap
 {
   public:
-    Parser();
-    virtual ~Parser();
+    ClassicParser();
+    virtual ~ClassicParser();
 
     bool parseAndAdd( std::string const & bytes );
   private:

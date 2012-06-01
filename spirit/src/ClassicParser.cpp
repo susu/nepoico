@@ -1,16 +1,16 @@
-#include <Parser.hpp>
+#include <ClassicParser.hpp>
 
 #include <boost/spirit/include/classic.hpp>
 
-Parser::Parser()
+ClassicParser::ClassicParser()
 {
 }
 
-Parser::~Parser()
+ClassicParser::~ClassicParser()
 {
 }
 
-bool Parser::parseAndAdd( std::string const & bytes )
+bool ClassicParser::parseAndAdd( std::string const & bytes )
 {
   using namespace boost::spirit::classic;
   char type;
