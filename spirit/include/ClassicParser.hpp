@@ -1,12 +1,14 @@
 #ifndef CLASSIC_PARSER_HPP_INC
 #define CLASSIC_PARSER_HPP_INC
 
+#include <Parser.hpp>
+
 #include <string>
 #include <map>
 
 typedef std::map<int, std::string> DataMap;
 
-class ClassicParser : public DataMap
+class ClassicParser : public DataMap, Parser
 {
   public:
     ClassicParser();

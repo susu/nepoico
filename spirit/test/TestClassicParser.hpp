@@ -79,7 +79,7 @@ class TestClassicParser : public CxxTest::TestSuite
       TS_ASSERT_EQUALS( "x",     p[223] );
     }
 
-    void test_parseAndAdd_should_process_multiple_TLV_in_one_string()
+    void xtest_parseAndAdd_should_process_multiple_TLV_in_one_string()
     {
       TCH;
       // Arrange
