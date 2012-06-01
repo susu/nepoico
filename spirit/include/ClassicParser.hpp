@@ -1,3 +1,6 @@
+#ifndef CLASSIC_PARSER_HPP_INC
+#define CLASSIC_PARSER_HPP_INC
+
 #include <string>
 #include <map>
 
@@ -12,4 +15,6 @@ class ClassicParser : public DataMap
     bool parseAndAdd( std::string const & bytes );
   private:
 };
+
+#endif
 
