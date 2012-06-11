@@ -41,7 +41,7 @@ class TestClassicParser : public CxxTest::TestSuite
       TS_ASSERT_EQUALS( "hello", p[55] );
     }
 
-    void test_parseAndAdd_should_not_store_data_in_map_in_case_of_wrong_input()
+    void test_parseAndAdd_should_indicate_error_in_case_of_longer_input()
     {
       TCH;
       // Arrange
@@ -53,11 +53,11 @@ class TestClassicParser : public CxxTest::TestSuite
 
       // Assert
       TS_ASSERT_EQUALS( false, result );
-      TS_ASSERT_DIFFERS( "bab", p[255] );
+      TS_ASSERT_EQUALS( "bab", p[255] );
       TS_ASSERT_DIFFERS( "babaaa", p[255] );
     }
 
-    void test_parseAndAdd_should_store_multiple_tag()
+    void test_parseAndAdd_should_store_multiple_tag_one_by_one()
     {
       TCH;
       // Arrange
@@ -79,7 +79,7 @@ class TestClassicParser : public CxxTest::TestSuite
       TS_ASSERT_EQUALS( "x",     p[223] );
     }
 
-    void xtest_parseAndAdd_should_process_multiple_TLV_in_one_string()
+    void test_parseAndAdd_should_process_multiple_TLV_in_one_string()
     {
       TCH;
       // Arrange

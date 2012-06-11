@@ -15,7 +15,20 @@ class ClassicParser : public DataMap, Parser
     virtual ~ClassicParser();
 
     bool parseAndAdd( std::string const & bytes );
+
+    void initStateMachine();
+    void storeChar( char c );
+    void storeValue( std::string const & value );
   private:
+    int m_state;
+    char m_tmpChar;
+
+    enum State
+    {
+      NEXT_IS_CHAR,
+      NEXT_IS_VALUE,
+      DONE
+    };
 };
 
 #endif
