@@ -1,16 +1,17 @@
-#include <ClassicParser.hpp>
+#include <parser/ClassicParser.hpp>
 
 #include <boost/spirit/include/classic.hpp>
 
-ClassicParser::ClassicParser()
+parser::ClassicParser::ClassicParser()
   : m_state(DONE)
 {
 }
 
-ClassicParser::~ClassicParser()
+parser::ClassicParser::~ClassicParser()
 {
 }
-
+namespace parser
+{
 struct TlvFiller
 {
   TlvFiller( ClassicParser & parser) : m_parser(parser)
@@ -30,8 +31,9 @@ struct TlvFiller
   }
   ClassicParser & m_parser;
 };
+}
 
-bool ClassicParser::parseAndAdd( std::string const & bytes )
+bool parser::ClassicParser::parseAndAdd( std::string const & bytes )
 {
   using namespace boost::spirit::classic;
   int length;
@@ -49,19 +51,19 @@ bool ClassicParser::parseAndAdd( std::string const & bytes )
   return ret && m_state == DONE;
 }
 
-void ClassicParser::initStateMachine()
+void parser::ClassicParser::initStateMachine()
 {
   m_state = NEXT_IS_CHAR;
 }
 
-void ClassicParser::storeChar( char c )
+void parser::ClassicParser::storeChar( char c )
 {
   assert(NEXT_IS_CHAR == m_state);
   m_tmpChar = c;
   m_state = NEXT_IS_VALUE;
 }
 
-void ClassicParser::storeValue( std::string const & value )
+void parser::ClassicParser::storeValue( std::string const & value )
 {
   assert(NEXT_IS_VALUE == m_state);
   int tag = ( int(m_tmpChar) & 0xff );

@@ -1,6 +1,6 @@
 #include "cxxtest_ext.hpp"
 
-#include <ClassicParser.hpp>
+#include <parser/ClassicParser.hpp>
 
 class TestClassicParser : public CxxTest::TestSuite
 {
@@ -8,7 +8,7 @@ class TestClassicParser : public CxxTest::TestSuite
     void test_ctor()
     {
       TCH;
-      ClassicParser p;
+      parser::ClassicParser p;
     }
 
     void test_parseAndAdd_should_store_data_in_map_in_case_of_proper_input()
@@ -16,7 +16,7 @@ class TestClassicParser : public CxxTest::TestSuite
       TCH;
       // Arrange
       std::string bytes( createTlv( char(255), 3, "bab" ) );
-      ClassicParser p;
+      parser::ClassicParser p;
 
       // Act
       bool result = p.parseAndAdd( bytes );
@@ -31,7 +31,7 @@ class TestClassicParser : public CxxTest::TestSuite
       TCH;
       // Arrange
       std::string bytes( createTlv(char(55), 5, "hello") );
-      ClassicParser p;
+      parser::ClassicParser p;
 
       // Act
       bool result = p.parseAndAdd( bytes );
@@ -46,7 +46,7 @@ class TestClassicParser : public CxxTest::TestSuite
       TCH;
       // Arrange
       std::string bytes( createTlv( char(255), 3, "babaaa") );
-      ClassicParser p;
+      parser::ClassicParser p;
 
       // Act
       bool result = p.parseAndAdd( bytes );
@@ -65,7 +65,7 @@ class TestClassicParser : public CxxTest::TestSuite
       tlvs.push_back( createTlv( char(150), 2,    "ha" ) );
       tlvs.push_back( createTlv( char(20),  5, "hahah" ) );
       tlvs.push_back( createTlv( char(223), 1,     "x" ) );
-      ClassicParser p;
+      parser::ClassicParser p;
 
       // Act
       bool result = p.parseAndAdd( tlvs[0] );
@@ -89,7 +89,7 @@ class TestClassicParser : public CxxTest::TestSuite
       bytes            += createTlv( char(22), 1, "h" );
       bytes            += createTlv( char(244), sentence.length(), sentence );
 
-      ClassicParser p;
+      parser::ClassicParser p;
       // Act
       bool results = p.parseAndAdd(bytes);
 
