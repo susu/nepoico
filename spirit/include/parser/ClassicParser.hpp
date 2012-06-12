@@ -17,7 +17,7 @@ class ClassicParser : public Parser
 
     bool parseAndAdd( std::string const & bytes );
 
-    std::string const&
+    std::string
     getValue( int tag ) const;
 
     void initStateMachine();

@@ -11,7 +11,7 @@ namespace parser
       virtual bool
       parseAndAdd( std::string const & bytes ) = 0;
 
-      virtual std::string const &
+      virtual std::string
       getValue( int tag ) const = 0;
 
       std::string operator[](int tag) const

@@ -51,10 +51,18 @@ bool parser::ClassicParser::parseAndAdd( std::string const & bytes )
   return ret && m_state == DONE;
 }
 
-std::string const &
+std::string
 parser::ClassicParser::getValue( int tag ) const
 {
-  return m_map.find( tag )->second;
+  DataMap::const_iterator it = m_map.find( tag );
+  if (m_map.end() == it)
+  {
+    return "";
+  }
+  else
+  {
+    return it->second;
+  }
 }
 
 void parser::ClassicParser::initStateMachine()
