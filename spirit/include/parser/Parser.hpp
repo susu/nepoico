@@ -8,7 +8,16 @@ namespace parser
   class Parser
   {
     public:
-      virtual bool parseAndAdd( std::string const & bytes ) = 0;
+      virtual bool
+      parseAndAdd( std::string const & bytes ) = 0;
+
+      virtual std::string const &
+      getValue( int tag ) const = 0;
+
+      std::string operator[](int tag) const
+      {
+        return getValue( tag );
+      }
   };
 }
 

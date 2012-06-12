@@ -12,25 +12,25 @@ parser::ClassicParser::~ClassicParser()
 }
 namespace parser
 {
-struct TlvFiller
-{
-  TlvFiller( ClassicParser & parser) : m_parser(parser)
+  struct TlvFiller
   {
-  }
+    TlvFiller( ClassicParser & parser) : m_parser(parser)
+    {
+    }
 
-  void operator()(char v) const
-  {
-    m_parser.initStateMachine();
-    m_parser.storeChar( v );
-  }
-  void operator()( const char* begin, const char* end ) const
-  {
-    int dist = std::distance(begin,end);
-    std::string val(begin, dist);
-    m_parser.storeValue( val );
-  }
-  ClassicParser & m_parser;
-};
+    void operator()(char v) const
+    {
+      m_parser.initStateMachine();
+      m_parser.storeChar( v );
+    }
+    void operator()( const char* begin, const char* end ) const
+    {
+      int dist = std::distance(begin,end);
+      std::string val(begin, dist);
+      m_parser.storeValue( val );
+    }
+    ClassicParser & m_parser;
+  };
 }
 
 bool parser::ClassicParser::parseAndAdd( std::string const & bytes )
@@ -51,6 +51,12 @@ bool parser::ClassicParser::parseAndAdd( std::string const & bytes )
   return ret && m_state == DONE;
 }
 
+std::string const &
+parser::ClassicParser::getValue( int tag ) const
+{
+  return m_map.find( tag )->second;
+}
+
 void parser::ClassicParser::initStateMachine()
 {
   m_state = NEXT_IS_CHAR;
@@ -67,7 +73,7 @@ void parser::ClassicParser::storeValue( std::string const & value )
 {
   assert(NEXT_IS_VALUE == m_state);
   int tag = ( int(m_tmpChar) & 0xff );
-  (*this)[ tag ] = value;
+  m_map[ tag ] = value;
   m_state = DONE;
 }
 

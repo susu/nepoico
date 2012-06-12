@@ -9,13 +9,16 @@ namespace parser
 {
 typedef std::map<int, std::string> DataMap;
 
-class ClassicParser : public DataMap, Parser
+class ClassicParser : public Parser
 {
   public:
     ClassicParser();
     virtual ~ClassicParser();
 
     bool parseAndAdd( std::string const & bytes );
+
+    std::string const&
+    getValue( int tag ) const;
 
     void initStateMachine();
     void storeChar( char c );
@@ -30,6 +33,8 @@ class ClassicParser : public DataMap, Parser
       NEXT_IS_VALUE,
       DONE
     };
+
+    DataMap m_map;
 };
 
 }

@@ -101,6 +101,19 @@ class TestClassicParser : public CxxTest::TestSuite
       TS_ASSERT_EQUALS( "h", p[22] );
     }
 
+    void test_getValue_should_return_empty_string_in_case_of_nonexistent_tag()
+    {
+      TCH;
+      // Arrange
+      parser::ClassicParser p;
+
+      // Act
+      std::string val = p.getValue( 34 );
+
+      // Assert
+      TS_ASSERT_EQUALS( val, "" );
+    }
+
   protected:
     std::string createTlv( char tag, char length, std::string value )
     {
