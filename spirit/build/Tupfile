@@ -4,28 +4,33 @@ INCLUDE= ../include
 SRC= ../src
 TST= ../test
 TEST_RUNNER= test_runner
+CC=g++
+#CC=clang++
 
-LIBPARSER= ClassicParser
+LIBPARSER= \
+  $(SRC)/ClassicParser.cpp \
+  $(SRC)/QiParser.cpp
+
 LIBS= libparser.so
 
-!cxx = |> g++ -Wall -pedantic -Werror -fPIC -I$(INCLUDE) -g -c %f -o %o |>
+!cxx = |> $(CC) -Wall -pedantic -Werror -fPIC -I$(INCLUDE) -g -c %f -o %o |>
 !cxxtestgen = |> cxxtestgen --error-printer -o %o %f |> 
 
-!o2bin = |> g++ %f -L. -lparser -Wl,-R./ -o %o |>
-!o2shared = |> g++ -shared %f -o %o |>
+!o2bin = |> $(CC) %f -L. -lparser -Wl,-R./ -o %o |>
+!o2shared = |> $(CC) -shared %f -o %o |>
 
-: foreach $(SRC)/$(LIBPARSER).cpp |> !cxx |> %B.o
+: foreach $(LIBPARSER) |> !cxx |> %B.o {libparser_objs}
 
 : $(SRC)/main.cpp |> !cxx |> %B.o
 
 # production lib
-: *.o |> !o2shared |> libparser.so
+: {libparser_objs} |> !o2shared |> libparser.so
 
 # production binary
 : main.o $(LIBS) |> !o2bin |> proto_run
 
 # generating test into one cpp
-: $(TST)/*.hpp |> !cxxtestgen |> $(TEST_RUNNER).cpp
+: $(TST)/Test*.hpp |> !cxxtestgen |> $(TEST_RUNNER).cpp
 : $(TEST_RUNNER).cpp  |> !cxx |> $(TEST_RUNNER).o
 
 : $(TEST_RUNNER).o $(LIBS) |> !o2bin |> test_all_stuff
