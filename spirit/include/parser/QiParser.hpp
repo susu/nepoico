@@ -2,8 +2,12 @@
 #define QIPARSER_HPP_INC
 
 #include <parser/Parser.hpp>
+
+#include <map>
+
 namespace parser
 {
+  typedef std::map<int, std::string> DataMap;
   class QiParser : public Parser
   {
     public:
@@ -14,6 +18,7 @@ namespace parser
 
       std::string getValue( int tag ) const;
     private:
+      DataMap m_map;
   };
 }
 
